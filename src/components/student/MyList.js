@@ -19,28 +19,31 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function MyList() {
-  const [students, setStudents] = useState([]);
 
-  useEffect(() => {
-      async function getAllStudent() {
-    try {
-      const students = await axios.get("http://localhost:3333/students");
-      // console.log(students.data);
-       setStudents(students.data);
-    } catch (error) {
-      console.log("somthing wrong");
-    }
+const [students, setStudents] = useState([]);
+
+ useEffect(() => {
+  async function getAllStudent() {
+   try {
+    const students = await axios.get("http://localhost:3333/students")
+    // console.log(students.data);
+    setStudents(students.data);
+   } catch (error) {
+    console.log("Something is Wrong");
+   }
   }
-    getAllStudent();
-  },[]);
+  getAllStudent();
+ }, [])
 
-const handleDelete = async id=>{
-  await axios.delete(`http://localhost:3333/students/${id}`)
-  var newstudent=students.filter((item)=>{
-    return item.id !==id;
+ const handleDelete = async id => {
+  await axios.delete(`http://localhost:3333/students/${id}`);
+  var newstudent = students.filter((item) => {
+   // console.log(item);
+   return item.id !== id;
   })
   setStudents(newstudent);
-}
+ }
+
 
   return (
     <>
@@ -69,7 +72,7 @@ const handleDelete = async id=>{
             {students.map((student, i) => {
               return (
                 <TableRow key={i} >
-                  <TableCell  align="center" style={{fontWeight:"bold"}}>{i + 1}</TableCell>
+                  <TableCell  align="center" style={{fontWeight:"bold"}}>{i+1}</TableCell>
                   <TableCell align="center"  style={{fontWeight:"bold"}}>{student.stuname}</TableCell>
                   <TableCell align="center"  style={{fontWeight:"bold"}}>{student.email}</TableCell>
                   <TableCell align="center">
@@ -84,14 +87,14 @@ const handleDelete = async id=>{
                     <Tooltip title="Edit">
                       <IconButton>
                         <Link to={`/edit/${student.id}`}>
-                          <Edit />
+                          <Edit style={{color:"green"}}/>
                         </Link>
                       </IconButton>
                     </Tooltip>
 
                     <Tooltip title="Delete">
                       <IconButton onClick={()=>handleDelete(student.id)}>
-                        <Delete color="secondary" />
+                        <Delete  style={{color:"red"}} />
                       </IconButton>
                     </Tooltip>
                   </TableCell>

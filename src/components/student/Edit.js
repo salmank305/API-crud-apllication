@@ -132,8 +132,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export const Edit = () => {
-  const { id } = useParams();
-const navigate=useNavigate()
+  const {id } = useParams();
+  const navigate = useNavigate();
   const [student, setStudent] = useState({
     stuname: "",
     email: "",
@@ -162,7 +162,7 @@ const navigate=useNavigate()
     e.preventDefault();
     try {
       await axios.put(`http://localhost:3333/students/${id}`, student);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log("Something is Wrong");
     }
@@ -170,10 +170,12 @@ const navigate=useNavigate()
 
   return (
     <>
-      <Box textAlign="center"
+      <Box
+        textAlign="center"
         p={2}
         mb={2}
-         style={{ backgroundColor: "Purple", color: "white" }}>
+        style={{ backgroundColor: "Purple", color: "white" }}
+      >
         <Typography variant="h2">React CRUD with API Call</Typography>
       </Box>
 
@@ -238,13 +240,16 @@ const navigate=useNavigate()
                 fullWidth
                 onClick={(e) => onFormSubmit(e)}
               >
-                {" "}
-                Update{" "}
+                Update
               </Button>
             </Box>
           </form>
           <Box m={3} textAlign="center">
-            <Button variant="contained" color="primary" onClick={()=>navigate('/')}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/")}
+            >
               Back to Home
             </Button>
           </Box>
